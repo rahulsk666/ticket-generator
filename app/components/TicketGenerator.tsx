@@ -5,7 +5,6 @@ import Title from "./Title";
 import { TicketData } from "../Types/Ticket";
 import { Errors } from "../Types/FormErrors";
 import Ticket from "./Ticket";
-import dynamic from "next/dynamic";
 
 const TicketGenerator = () => {
   const [data, setData] = useState<TicketData>({
@@ -17,8 +16,6 @@ const TicketGenerator = () => {
   });
   const [errors, setErrors] = useState<Errors>({});
   const [ticket, setTicket] = useState<boolean>(false);
-
-  // const DynamicTicket = dynamic(() => import("./Ticket"));
 
   const isFormValid =
     data.avatar &&
@@ -35,24 +32,13 @@ const TicketGenerator = () => {
     if (!isFormValid) {
       return;
     }
-    console.log(data);
     setTicket(true);
-    // clearForm();
   };
 
-  // const clearForm = () => {
-  //   setData(() => ({
-  //     avatar: null,
-  //     preview: "",
-  //     name: "",
-  //     email: "",
-  //     github: "",
-  //   }));
-  // };
   return (
     <>
       {ticket ? (
-        <Ticket name={data.name} email={data.email} />
+        <Ticket data={data} />
       ) : (
         <>
           <Title />
