@@ -1,25 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --bg-image: url("/images/background-mobile.png");
+  --orange-gradient: linear-gradient(
+    180deg,
+    hsl(7, 86%, 67%),
+    hsl(0, 0%, 100%)
+  );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-inconsolata: var(--font-inconsolata);
+  --color-neutral-0: hsl(0, 0%, 100%);
+  --color-Neutral-300: hsl(252, 6%, 83%);
+  --color-Neutral-500: hsl(245, 15%, 58%);
+  --color-Neutral-700: hsl(245, 19%, 35%);
+  --color-Neutral-900: hsl(248, 70%, 10%);
+  --color-Orange-500: hsl(7, 88%, 67%);
+  --color-Orange-700: hsl(7, 71%, 60%);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (min-width: 768px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-image: url("/images/background-tablet.png");
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --bg-image: url("/images/background-desktop.png");
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+  }
+} */
+
 body {
-  background: var(--background);
+  background: var(--background) var(--bg-image) center / cover no-repeat;
+  /* background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--background); */
   color: var(--foreground);
   font-family: var(--font-inconsolata), Arial, Helvetica, sans-serif;
+  font-size: 20px;
 }
