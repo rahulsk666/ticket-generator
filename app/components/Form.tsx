@@ -2,27 +2,28 @@
 import Image from "next/image";
 import FileUploader from "./FileUploader";
 import FormInput from "./FormInput";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEventHandler } from "react";
+import { TicketData } from "../Types/Ticket";
+import { Errors } from "../Types/FormErrors";
 
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png"];
 const MAX_IMAGE_SIZE = 500 * 1024;
 
-type Errors = {
-  avatar?: string;
-  name?: string;
-  email?: string;
-  github?: string;
+type FormProps = {
+  data: TicketData;
+  errors: Errors;
+  setErrors: React.Dispatch<React.SetStateAction<Errors>>;
+  setData: React.Dispatch<React.SetStateAction<TicketData>>;
+  handleSubmit: MouseEventHandler<HTMLButtonElement>;
 };
 
-const Form = () => {
-  const [avatar, setAvatar] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [github, setGithub] = useState("");
-
-  const [errors, setErrors] = useState<Errors>({});
-
+const Form = ({
+  data,
+  setData,
+  errors,
+  setErrors,
+  handleSubmit,
+}: FormProps) => {
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) {
@@ -38,19 +39,17 @@ const Form = () => {
     setErrors((prev) => ({ ...prev, avatar: error }));
 
     if (!error) {
-      setAvatar(file);
-      setPreview(URL.createObjectURL(file));
+      setData((prev) => ({ ...prev, avatar: file }));
+      setData((prev) => ({ ...prev, preview: URL.createObjectURL(file) }));
     }
   };
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setName(value);
+    setData((prev) => ({ ...prev, name: value }));
 
     let error = "";
     if (!value && value == "") {
-      console.log(1);
-
       error = "Name is required";
     }
     setErrors((prev) => ({ ...prev, name: error }));
@@ -59,7 +58,7 @@ const Form = () => {
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setEmail(value);
+    setData((prev) => ({ ...prev, email: value }));
 
     let error = "";
     if (!value && value == "") {
@@ -72,7 +71,7 @@ const Form = () => {
 
   const handleGithubChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setGithub(value);
+    setData((prev) => ({ ...prev, github: value }));
 
     let error = "";
     if (!value && value == "") {
@@ -82,37 +81,11 @@ const Form = () => {
   };
 
   const handleRemoveImage = () => {
-    setAvatar(null);
-    setPreview(null);
+    setData((prev) => ({ ...prev, avatar: null, preview: null }));
+
     setErrors((prev) => ({ ...prev, avatar: "" }));
   };
 
-  const clearForm = () => {
-    setAvatar(null);
-    setPreview(null);
-    setEmail("");
-    setName("");
-    setGithub("");
-  };
-
-  const isFormValid =
-    avatar &&
-    preview &&
-    !errors.avatar &&
-    !errors.name &&
-    !errors.email &&
-    !errors.github &&
-    name &&
-    email &&
-    github;
-
-  const handleSubmit = () => {
-    if (!isFormValid) {
-      return;
-    }
-    console.log({ avatar, email, name, github });
-    clearForm();
-  };
   return (
     <form>
       <div className="flex flex-col justify-center space-y-2 items-center mt-3 w-full">
@@ -121,7 +94,7 @@ const Form = () => {
             Upload Avatar
           </label>
           <FileUploader
-            preview={preview}
+            preview={data.preview}
             handleImageChange={handleImageChange}
             handleRemoveImage={handleRemoveImage}
           />
@@ -143,7 +116,7 @@ const Form = () => {
           <FormInput
             id={"name"}
             name={"name"}
-            value={name}
+            value={data.name}
             handleChange={handleNameChange}
             error={errors.name}
           />
@@ -167,7 +140,7 @@ const Form = () => {
           <FormInput
             id={"email"}
             name={"email"}
-            value={email}
+            value={data.email}
             handleChange={handleEmailChange}
             error={errors.email}
           />
@@ -191,7 +164,7 @@ const Form = () => {
           <FormInput
             id={"github"}
             name={"github"}
-            value={github}
+            value={data.github}
             handleChange={handleGithubChange}
             error={errors.github}
           />
@@ -211,7 +184,7 @@ const Form = () => {
         <div className="flex flex-col mt-5 my-2 rounded text-center w-77 md:w-100">
           <button
             type="button"
-            disabled={!isFormValid}
+            // disabled={}
             className="w-full rounded bg-Orange-700 hover:bg-Orange-500"
             onClick={handleSubmit}
           >
