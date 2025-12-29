@@ -51,9 +51,10 @@ const Form = ({
     let error = "";
     if (!value && value == "") {
       error = "Name is required";
+    } else if (value.length < 3) {
+      error = "Name should have a minimum of three characters";
     }
     setErrors((prev) => ({ ...prev, name: error }));
-    console.log(errors.name);
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
