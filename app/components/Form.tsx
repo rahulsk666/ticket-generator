@@ -204,14 +204,14 @@ const Form = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col mt-5 my-2 rounded text-center w-77 md:w-100">
+        <div className="flex flex-col mt-5 my-2 rounded-lg text-center w-77 md:w-100">
           <button
             type="button"
             // disabled={}
-            className="w-full rounded bg-Orange-700 hover:bg-Orange-500"
+            className="w-full rounded-lg p-2 text-lg text-Neutral-900 font-black bg-Orange-700 hover:bg-Orange-500"
             onClick={handleSubmit}
           >
-            Submit
+            Generate My Ticket
           </button>
         </div>
       </div>
