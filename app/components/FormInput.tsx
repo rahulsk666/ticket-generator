@@ -4,11 +4,19 @@ interface inputTypes {
   id: string;
   name: string;
   value: string;
+  placeholder?: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }
 
-const FormInput = ({ id, name, value, handleChange, error }: inputTypes) => {
+const FormInput = ({
+  id,
+  name,
+  value,
+  placeholder,
+  handleChange,
+  error,
+}: inputTypes) => {
   return (
     <>
       <div className="flex flex-col">
@@ -18,7 +26,8 @@ const FormInput = ({ id, name, value, handleChange, error }: inputTypes) => {
           id={id}
           value={value}
           onChange={handleChange}
-          className={`rounded-xl bg-Neutral-700/35 w-full h-11 hover:bg-Neutral-500/30 border ${
+          placeholder={placeholder || ""}
+          className={`rounded-xl px-3 text-base bg-Neutral-700/35 w-full h-11 hover:bg-Neutral-500/30 border ${
             error ? "border-Orange-700" : " border-Neutral-300"
           }`}
         />

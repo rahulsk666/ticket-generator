@@ -68,16 +68,18 @@ const FileUploader = ({
             onDrop={handleDropImage}
             onDragOver={(e) => e.preventDefault()}
           >
-            <div className="flex flex-col text-neutral-300 items-center p-2 mt-6 space-y-3 pointer-events-none cursor-pointer">
-              <div className="border border-Neutral-700 rounded p-1 bg-Neutral-700/50">
+            <div className="flex flex-col text-neutral-300 items-center p-2 mt-2 space-y-5 pointer-events-none cursor-pointer">
+              <div className="border border-Neutral-700 rounded-xl p-2 bg-Neutral-700/50">
                 <Image
                   src={"/icon-upload.svg"}
                   alt="upload"
-                  width={30}
-                  height={30}
+                  width={25}
+                  height={25}
                 />
               </div>
-              <span className="text-sm">Drag and drop or click to upload</span>
+              <span className="text-base text-Neutral-300/90">
+                Drag and drop or click to upload
+              </span>
             </div>
           </div>
         </>

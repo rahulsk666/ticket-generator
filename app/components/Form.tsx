@@ -120,7 +120,7 @@ const Form = ({
             handleDropImage={handleDropImage}
           />
           <div>
-            <div className="text-xs flex flex-row gap-2 text-neutral-300">
+            <div className="text-xs flex flex-row gap-2 text-neutral-300/80">
               <Image src={"/icon-info.svg"} alt="icon" width={10} height={10} />
               {errors && errors.avatar ? (
                 <span className="text-Orange-700">{errors.avatar}</span>
@@ -162,6 +162,7 @@ const Form = ({
             id={"email"}
             name={"email"}
             value={data.email}
+            placeholder={"example@email.com"}
             handleChange={handleEmailChange}
             error={errors.email}
           />
@@ -186,6 +187,7 @@ const Form = ({
             id={"github"}
             name={"github"}
             value={data.github}
+            placeholder={"@yourusername"}
             handleChange={handleGithubChange}
             error={errors.github}
           />
