@@ -29,6 +29,20 @@ const Form = ({
     if (!file) {
       return;
     }
+    validateAndUpdateFile(file);
+  };
+
+  const handleDropImage = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const file = event.dataTransfer?.files?.[0];
+
+    if (!file) {
+      return;
+    }
+    validateAndUpdateFile(file);
+  };
+
+  const validateAndUpdateFile = (file: File) => {
     let error = "";
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
       error = "Only jpg and png is supported";
@@ -39,8 +53,11 @@ const Form = ({
     setErrors((prev) => ({ ...prev, avatar: error }));
 
     if (!error) {
-      setData((prev) => ({ ...prev, avatar: file }));
-      setData((prev) => ({ ...prev, preview: URL.createObjectURL(file) }));
+      setData((prev) => ({
+        ...prev,
+        avatar: file,
+        preview: URL.createObjectURL(file),
+      }));
     }
   };
 
@@ -82,8 +99,10 @@ const Form = ({
   };
 
   const handleRemoveImage = () => {
+    if (data.preview) {
+      URL.revokeObjectURL(data.preview);
+    }
     setData((prev) => ({ ...prev, avatar: null, preview: null }));
-
     setErrors((prev) => ({ ...prev, avatar: "" }));
   };
 
@@ -98,6 +117,7 @@ const Form = ({
             preview={data.preview}
             handleImageChange={handleImageChange}
             handleRemoveImage={handleRemoveImage}
+            handleDropImage={handleDropImage}
           />
           <div>
             <div className="text-xs flex flex-row gap-2 text-neutral-300">

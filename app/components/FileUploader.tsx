@@ -5,12 +5,14 @@ type FileUploaderProps = {
   handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
   preview?: string | null;
   handleRemoveImage: MouseEventHandler<HTMLButtonElement>;
+  handleDropImage: (e: React.DragEvent<HTMLDivElement>) => void;
 };
 
 const FileUploader = ({
   handleImageChange,
   preview,
   handleRemoveImage,
+  handleDropImage,
 }: FileUploaderProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const openFileDialog = () => {
@@ -63,6 +65,8 @@ const FileUploader = ({
           <div
             className="border-dashed rounded border border-neutral-300 bg-Neutral-700/35 w-full min-h-30 relative cursor-pointer"
             onClick={openFileDialog}
+            onDrop={handleDropImage}
+            onDragOver={(e) => e.preventDefault()}
           >
             <div className="flex flex-col text-neutral-300 items-center p-2 mt-6 space-y-3 pointer-events-none cursor-pointer">
               <div className="border border-Neutral-700 rounded p-1 bg-Neutral-700/50">
