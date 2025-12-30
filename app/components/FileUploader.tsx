@@ -34,7 +34,7 @@ const FileUploader = ({
       />
       {preview ? (
         <>
-          <div className="flex flex-col border-dashed rounded border bg-Neutral-700/35 border-neutral-300 w-full justify-center items-center min-h-30">
+          <div className="flex flex-col border-dashed rounded-2xl border bg-Neutral-700/35 border-neutral-300 w-full justify-center items-center min-h-30">
             <Image
               src={"/images/image-avatar.jpg"}
               alt="Avatar preview"
@@ -63,7 +63,7 @@ const FileUploader = ({
       ) : (
         <>
           <div
-            className="border-dashed rounded border border-neutral-300 bg-Neutral-700/35 w-full min-h-30 relative cursor-pointer"
+            className="border-dashed rounded-2xl border border-neutral-300 bg-Neutral-700/35 w-full min-h-30 relative cursor-pointer"
             onClick={openFileDialog}
             onDrop={handleDropImage}
             onDragOver={(e) => e.preventDefault()}

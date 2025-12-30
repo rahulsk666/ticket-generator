@@ -18,7 +18,7 @@ const FormInput = ({ id, name, value, handleChange, error }: inputTypes) => {
           id={id}
           value={value}
           onChange={handleChange}
-          className={`rounded bg-Neutral-700/35 w-full hover:bg-Neutral-500/30 border ${
+          className={`rounded-xl bg-Neutral-700/35 w-full h-11 hover:bg-Neutral-500/30 border ${
             error ? "border-Orange-700" : " border-Neutral-300"
           }`}
         />
